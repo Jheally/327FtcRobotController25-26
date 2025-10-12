@@ -16,11 +16,13 @@ public class New_Teleop {
             backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor"); 
 
             waitforStart();
+            //this code wont run until the game starts
             frontLeft.setDirection(DcMotor.Direction.REVERSE);
 
             if (opModeIsActive()) {
 
                 while (opModeIsActive()) {
+                      //makign the variables
                     y = -gamepad1.left_stick_y;
                     x = gamepad1.right_stick_x * 0.7;
                     r = gamepad1.left_stick_x;
@@ -49,4 +51,5 @@ public class New_Teleop {
     frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
     backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
 }
+
 
