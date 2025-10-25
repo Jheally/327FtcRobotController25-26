@@ -1,0 +1,57 @@
+package org.firstinspires.ftc.teamcode;
+
+import com.pedropathing.follower.Follower;
+import com.pedropathing.follower.FollowerConstants;
+import com.pedropathing.ftc.FollowerBuilder;
+import com.pedropathing.paths.PathConstraints;
+import com.qualcomm.robotcore.hardware.HardwareMap;
+
+public class Constants {
+    public static FollowerConstants followerConstants = new FollowerConstants()
+            .mass(5);
+
+    public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
+
+    public static Follower createFollower(HardwareMap hardwareMap) {
+        return new FollowerBuilder(followerConstants, hardwareMap)
+                .pathConstraints(pathConstraints)
+                .build();
+    }
+
+    public static MecanumConstants driveConstants = new MecanumConstants()
+            .maxPower(1)
+            .frontRightMotorName("frontRightMotor")
+            .backRightMotorName("backRightMotor")
+            .backLeftMotorName("backLeftMotor")
+            .frontLeftMotorName("frontLeftMotor")
+            .frontLeftMotorDirection(DcMotorSimple.Direction.REVERSE)
+            .backLeftMotorDirection(DcMotorSimple.Direction.REVERSE)
+            .frontRightMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .backRightMotorDirection(DcMotorSimple.Direction.FORWARD)
+
+    public static Follower createFollower(HardwareMap hardwareMap) {
+        return new FollowerBuilder(followerConstants, hardwareMap)
+                .pathConstraints(pathConstraints)
+                .mecanumDrivetrain(driveConstants)
+                .build();
+        return new FollowerBuilder(followerConstants, hardwareMap)
+                .threeWheelLocalizer(localizerConstants)
+                /* other builder steps */
+                .build();
+    }
+
+    public static ThreeWheelIMUConstants localizerConstants = new ThreeWheelIMUConstants()
+            .forwardTicksToInches(.001989436789)
+            .strafeTicksToInches(.001989436789)
+            .turnTicksToInches(.001989436789)
+            .leftPodY(8.5)
+            .rightPodY(-8.5)
+            .strafePodX(-9.5)
+            .leftEncoder_HardwareMapName("frontRight")
+            .rightEncoder_HardwareMapName("frontLeft")
+            .strafeEncoder_HardwareMapName("backLeft")
+            .leftEncoderDirection(Encoder.FORWARD)
+            .rightEncoderDirection(Encoder.FORWARD)
+            .strafeEncoderDirection(Encoder.FORWARD)
+}
+
