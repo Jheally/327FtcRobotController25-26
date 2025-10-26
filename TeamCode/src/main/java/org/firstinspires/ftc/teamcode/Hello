@@ -1,0 +1,103 @@
+package org.firstinspires.ftc.TeamCode;
+
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+public class Old_Teleop extends LinearOpMode {
+
+    private DcMotor frontLeftMotor;
+    private DcMotor motorArm;
+    private DcMotor motorArmLinearSlide;
+    private DcMotor backLeftMotor;
+    private DcMotor frontRightMotor;
+    private DcMotor backRightMotor;
+    private CRServo servoRotate;
+    private DcMotor motorLinear1;
+    private DcMotor Linear2;
+
+    @Override
+    public void runOpMode() {
+
+        // Hardware mapping
+        frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
+        frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
+        backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
+        motorArm = hardwareMap.get(DcMotor.class, "motorArm");
+        motorArmLinearSlide = hardwareMap.get(DcMotor.class, "motorArmLinearSlide");
+        servoRotate = hardwareMap.get(CRServo.class, "servoRotate");
+        motorLinear1 = hardwareMap.get(DcMotor.class, "motorLinear1");
+        Linear2 = hardwareMap.get(DcMotor.class, "Linear 2");
+
+        // Reverse motors for mecanum drive
+        frontLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        backLeftMotor.setDirection(DcMotor.Direction.REVERSE);
+        frontRightMotor.setDirection(DcMotor.Direction.FORWARD);
+        backRightMotor.setDirection(DcMotor.Direction.FORWARD);
+
+        // Reverse arm motors if needed
+        motorArm.setDirection(DcMotor.Direction.REVERSE);
+        motorArmLinearSlide.setDirection(DcMotor.Direction.REVERSE);
+
+        waitForStart();
+
+        while (opModeIsActive()) {
+
+            // ---------------- Mecanum drive ----------------
+            double drive  = -gamepad1.right_stick_y; // forward/back
+            double strafe = gamepad1.right_stick_x;  // left/right
+            double rotate = gamepad1.left_stick_x;   // rotation
+
+            // Calculate motor powers
+            double frontLeftPower  = drive + strafe + rotate;
+            double backLeftPower   = drive - strafe + rotate;
+            double frontRightPower = drive - strafe - rotate;
+            double backRightPower  = drive + strafe - rotate;
+
+            // Normalize motor powers if any > 1.0
+            double max = Math.max(Math.abs(frontLeftPower),
+                         Math.max(Math.abs(backLeftPower),
+                         Math.max(Math.abs(frontRightPower), Math.abs(backRightPower))));
+            if (max > 1.0) {
+                frontLeftPower  /= max;
+                backLeftPower   /= max;
+                frontRightPower /= max;
+                backRightPower  /= max;
+            }
+
+            // Set motor powers
+            frontLeftMotor.setPower(frontLeftPower);
+            backLeftMotor.setPower(backLeftPower);
+            frontRightMotor.setPower(frontRightPower);
+            backRightMotor.setPower(backRightPower);
+
+            // ---------------- Arm & linear slide ----------------
+            double m = -gamepad2.right_stick_y * 0.5;
+            double b = gamepad2.left_stick_y * 0.65;
+            motorArm.setPower(m);
+            motorArmLinearSlide.setPower(b);
+
+            // ---------------- Servo ----------------
+            if (gamepad2.right_trigger > 0.5) {
+                servoRotate.setPower(1); // Intake
+            } else if (gamepad2.right_bumper) {
+                servoRotate.setPower(-1); // Outtake
+            } else {
+                servoRotate.setPower(0);
+            }
+
+            // ---------------- Linear slides ----------------
+            if (gamepad2.y) {
+                motorLinear1.setPower(0.6);
+                Linear2.setPower(-0.6);
+            } else if (gamepad2.x) {
+                motorLinear1.setPower(-0.6);
+                Linear2.setPower(0.6);
+            } else {
+                motorLinear1.setPower(0);
+                Linear2.setPower(0);
+            }
+        }
+    }
+}
