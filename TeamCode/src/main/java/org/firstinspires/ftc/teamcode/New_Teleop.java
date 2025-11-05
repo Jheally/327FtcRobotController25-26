@@ -8,12 +8,14 @@ public class New_Teleop {
       private dcMotor frontRight;
       private dcMotor backLeft;
       private dcMotor backRight;
+      private dcMotor rollerMotor;
 
-      publci void runOpMode(){
-            frontLeft = hardwareMap.get(DcMotor.class, "frontLeftMotor");
-            frontRight = hardwareMap.get(DcMotor.class, "frontRightMotor");
-            backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
-            backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor"); 
+      public void runOpMode(){
+            frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+            frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+            backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+            backRight = hardwareMap.get(DcMotor.class, "backRight");
+            rollerMotor = hardwareMap.get(DcMotor.class, "rollerMotor");
 
             waitforStart();
             frontLeft.setDirection(DcMotor.Direction.REVERSE);
@@ -49,4 +51,9 @@ public class New_Teleop {
     frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
     backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
 }
+
+
+    backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
+}
+
 
