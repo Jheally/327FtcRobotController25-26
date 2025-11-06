@@ -1,59 +1,53 @@
-package org.firstinspires.ftc.TeamCode;
+package org.firstinspires.ftc.teamcode;
 
-public class New_Teleop {
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import org.firstinspires.ftc.robotcore.external.JavaUtil;
+
+@TeleOp(name = "New Teleop")
+public class New_Teleop extends LinearOpMode {
+
+    private DcMotor frontLeft;
+    private DcMotor frontRight;
+    private DcMotor backLeft;
+    private DcMotor backRight;
+    private DcMotor rollerMotor;
+
+    @Override
+    public void runOpMode() {
+
+        frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
+        frontRight = hardwareMap.get(DcMotor.class, "frontRight");
+        backLeft = hardwareMap.get(DcMotor.class, "backLeft");
+        backRight = hardwareMap.get(DcMotor.class, "backRight");
+        rollerMotor = hardwareMap.get(DcMotor.class, "rollerMotor");
+
+        //change directions?
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
 
 
-      //variables for motors
-      private dcMotor frontLeft;
-      private dcMotor frontRight;
-      private dcMotor backLeft;
-      private dcMotor backRight;
-      private dcMotor rollerMotor;
 
-      public void runOpMode(){
-            frontLeft = hardwareMap.get(DcMotor.class, "frontLeft");
-            frontRight = hardwareMap.get(DcMotor.class, "frontRight");
-            backLeft = hardwareMap.get(DcMotor.class, "backLeft");
-            backRight = hardwareMap.get(DcMotor.class, "backRight");
-            rollerMotor = hardwareMap.get(DcMotor.class, "rollerMotor");
+        waitForStart();
 
-            waitforStart();
-            frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        if (opModeIsActive()) {
 
-            if (opModeIsActive()) {
+            while (opModeIsActive()) {
 
-                while (opModeIsActive()) {
-                    y = -gamepad1.left_stick_y;
-                    x = gamepad1.right_stick_x * 0.7;
-                    r = gamepad1.left_stick_x;
-                    m = -(gamepad2.right_stick_y * 0.5);
-                    b = gamepad2.left_stick_y * 0.65;
-                    denominator = JavaUtil.maxOfList(JavaUtil.createListWith(JavaUtil.sumOfList(JavaUtil.createListWith(Math.abs(y), Math.abs(x), Math.abs(rx), Math.abs(m))), 1));
-                  
-    
-                    // moving mecanum wheels based on input
-                    frontLeft.setPower((y + x + r) / denominator);
-                    backLeft.setPower(((y - x) + r) / denominator);
-                    frontRight.setPower(((y - x) - r) / denominator);
-                    backRight.setPower(((y + x) - r) / denominator);
-                }
-      }
+                double y = -gamepad1.left_stick_y;
+                double x = gamepad1.right_stick_x * 0.7;
+                double r = gamepad1.left_stick_x;
+                double m = -(gamepad2.right_stick_y * 0.5);
+                double b = gamepad2.left_stick_y * 0.65;
 
-     // declaring hardware
-    private DcMotor frontLeftMotor;
-    private DcMotor backLeftMotor;
-    private DcMotor frontRightMotor;
-    private DcMotor backRightMotor;
+                double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
-    // variables for hardware
-    frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeftMotor");
-    backLeftMotor = hardwareMap.get(DcMotor.class, "backLeftMotor");
-    frontRightMotor = hardwareMap.get(DcMotor.class, "frontRightMotor");
-    backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
+                frontLeft.setPower((y + x + r) / denominator);
+                backLeft.setPower((y - x + r) / denominator);
+                frontRight.setPower((y - x - r) / denominator);
+                backRight.setPower((y + x - r) / denominator);
+            }
+        }
+    }
 }
-
-
-    backRightMotor = hardwareMap.get(DcMotor.class, "backRightMotor");
-}
-
-
