@@ -8,8 +8,11 @@ import com.pedropathing.paths.PathConstraints;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.pedropathing.ftc.localization.constants.ThreeWheelConstants;
+import com.pedropathing.ftc.localization.Encoder;
+
 
 public class Constants {
+
 
     public static FollowerConstants followerConstants = new FollowerConstants()
             .mass(5.83);
@@ -19,10 +22,10 @@ public class Constants {
             .rightRearMotorName("backRight")
             .leftRearMotorName("backLeft")
             .leftFrontMotorName("frontLeft")
-            .leftFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
-            .leftRearMotorDirection(DcMotorSimple.Direction.REVERSE)
-            .rightFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
-            .rightRearMotorDirection(DcMotorSimple.Direction.FORWARD);
+            .leftFrontMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .leftRearMotorDirection(DcMotorSimple.Direction.FORWARD)
+            .rightFrontMotorDirection(DcMotorSimple.Direction.REVERSE)
+            .rightRearMotorDirection(DcMotorSimple.Direction.REVERSE);
 
     public static ThreeWheelConstants localizerConstants = new ThreeWheelConstants()
             .forwardTicksToInches(0.001989436789)
@@ -33,7 +36,14 @@ public class Constants {
             .strafePodX(-9.5)
             .leftEncoder_HardwareMapName("leftEncoder")
             .rightEncoder_HardwareMapName("rightEncoder")
-            .strafeEncoder_HardwareMapName("strafeEncoder");
+            .strafeEncoder_HardwareMapName("strafeEncoder")
+            .leftEncoderDirection(Encoder.REVERSE)
+            .rightEncoderDirection(Encoder.FORWARD)
+            .strafeEncoderDirection(Encoder.REVERSE);
+            //.forwardTicksToInches(multiplier)
+            //.strafeTicksToInches(multiplier)
+            //.turnTicksToInches(multiplier)
+
 
     public static PathConstraints pathConstraints = new PathConstraints(0.99, 100, 1, 1);
 
@@ -42,6 +52,7 @@ public class Constants {
                 .pathConstraints(pathConstraints)
                 .mecanumDrivetrain(driveConstants)
                 .threeWheelLocalizer(localizerConstants)
+
                 .build();
     }
 }
