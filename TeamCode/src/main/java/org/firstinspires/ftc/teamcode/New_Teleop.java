@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
-@TeleOp(name = "New Teleop")
+@TeleOp(name = "New Teleop v5")
 public class New_Teleop extends LinearOpMode {
 
     private DcMotor frontLeft;
@@ -26,7 +26,7 @@ public class New_Teleop extends LinearOpMode {
         //change directions?
         frontLeft.setDirection(DcMotor.Direction.REVERSE);
         backLeft.setDirection(DcMotor.Direction.REVERSE);
-
+        rollerMotor.setDirection(DcMotor.Direction.REVERSE);
 
 
         waitForStart();
@@ -40,6 +40,9 @@ public class New_Teleop extends LinearOpMode {
                 double r = gamepad1.left_stick_x;
                 double m = -(gamepad2.right_stick_y * 0.5);
                 double b = gamepad2.left_stick_y * 0.65;
+                boolean bumperR = gamepad1.right_bumper;
+                float triggerR = gamepad1.right_trigger;
+                boolean bumperL = gamepad1.left_bumper;
 
                 double denominator = Math.max(Math.abs(y) + Math.abs(x) + Math.abs(r), 1);
 
@@ -47,6 +50,18 @@ public class New_Teleop extends LinearOpMode {
                 backLeft.setPower((y - x + r) / denominator);
                 frontRight.setPower((y - x - r) / denominator);
                 backRight.setPower((y + x - r) / denominator);
+
+                if (bumperR) {
+                    rollerMotor.setPower(1);
+                } else{
+                    rollerMotor.setPower(0);
+                }
+
+                if(bumperL){
+                    rollerMotor.setPower(-1);
+                } else {
+                    rollerMotor.setPower(0);
+                }
             }
         }
     }
