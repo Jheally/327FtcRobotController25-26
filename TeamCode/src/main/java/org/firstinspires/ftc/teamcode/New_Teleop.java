@@ -47,6 +47,10 @@ public class New_Teleop extends LinearOpMode {
                 backLeft.setPower((y - x + r) / denominator);
                 frontRight.setPower((y - x - r) / denominator);
                 backRight.setPower((y + x - r) / denominator);
+
+                if (gamepad1.right_bumper){
+                    rollerMotor.setPower(0.5);
+                }
             }
         }
     }
