@@ -1,7 +1,7 @@
 // package and imports
 
 // a package defines where our code is stored
-package org.firstinspires.ftc.teamcode;
+/* package org.firstinspires.ftc.teamcode;
 
 // imports bring in LinearOpMode, motors, servos, etc.
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -9,6 +9,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.Range;
+import com.qualcomm.hardware.
 
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
@@ -71,3 +72,4 @@ public class New_Teleop extends OpMode {
         }
     }
 }
+*/
