@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.pedropathing.ftc.localization.constants.ThreeWheelIMUConstants;
 import com.pedropathing.ftc.localization.Encoder;
 
-
+//hi
 public class Constants {
 
 
@@ -31,12 +31,12 @@ public class Constants {
             .yVelocity(35.45409657441857);
 
     public static ThreeWheelIMUConstants localizerConstants = new ThreeWheelIMUConstants()
-            .forwardTicksToInches(-0.00315966)
-            .strafeTicksToInches(-0.00303022)
-            .turnTicksToInches(0.0025060895)
-            .leftPodY(-8)
-            .rightPodY(8)
-            .strafePodX(8.5)
+            .forwardTicksToInches(-0.00317607629)
+            .strafeTicksToInches(-0.00304544103333)
+            .turnTicksToInches(0.0025067216)
+            .leftPodY(-7)
+            .rightPodY(7)
+            .strafePodX(-8.75)
             .leftEncoder_HardwareMapName("leftEncoder")
             .rightEncoder_HardwareMapName("rightEncoder")
             .strafeEncoder_HardwareMapName("strafeEncoder")
