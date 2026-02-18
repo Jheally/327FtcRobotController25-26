@@ -23,9 +23,12 @@ package org.firstinspires.ftc.robotcontroller.external.samples;
 
 import android.util.Size;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.CRServo;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
@@ -59,13 +62,26 @@ import org.firstinspires.ftc.vision.opencv.PredominantColorProcessor;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@Disabled
-@TeleOp(name = "Concept: Vision Color-Sensor", group = "Concept")
+
+@Autonomous(name = "Concept: Vision Color-Sensor", group = "Concept")
 public class ConceptVisionColorSensor extends LinearOpMode
 {
+
+    private DcMotor frontLeftMotor;
+    private DcMotor backLeftMotor;
+    private DcMotor frontRightMotor;
+    private DcMotor backRightMotor;
+
+
     @Override
     public void runOpMode()
     {
+
+        frontLeftMotor = hardwareMap.get(DcMotor.class, "frontLeft");
+        backLeftMotor = hardwareMap.get(DcMotor.class, "backLeft");
+        frontRightMotor = hardwareMap.get(DcMotor.class, "frontRight");
+        backRightMotor = hardwareMap.get(DcMotor.class, "backRight");
+
         /* Build a "Color Sensor" vision processor based on the PredominantColorProcessor class.
          *
          * - Focus the color sensor by defining a RegionOfInterest (ROI) which you want to inspect.
@@ -136,11 +152,23 @@ public class ConceptVisionColorSensor extends LinearOpMode
             // Note: to take actions based on the detected color, simply use the colorSwatch or
             // color space value in a comparison or switch.   eg:
 
-            //    if (result.closestSwatch == PredominantColorProcessor.Swatch.RED) {.. some code ..}
+            PredominantColorProcessor.Result result = colorSensor.getAnalysis();
+
+
+            if (result.closestSwatch == PredominantColorProcessor.Swatch.ARTIFACT_GREEN) {
+                frontLeftMotor.setPower(0.5);
+                backLeftMotor.setPower(0.5);
+                frontRightMotor.setPower(0.5);
+                backLeftMotor.setPower(0.5);
+                sleep(1000);
+            }
             //  or:
             //    if (result.RGB[0] > 128) {... some code  ...}
 
-            PredominantColorProcessor.Result result = colorSensor.getAnalysis();
+            String savedColorMatch = "NULL";
+
+
+
 
             // Display the Color Sensor result.
             telemetry.addData("Best Match", result.closestSwatch);
@@ -154,5 +182,6 @@ public class ConceptVisionColorSensor extends LinearOpMode
 
             sleep(20);
         }
+
     }
 }
