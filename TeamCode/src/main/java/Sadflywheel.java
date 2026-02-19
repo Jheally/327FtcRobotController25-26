@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
-@TeleOp (name = "sad flywheel v20")
+@TeleOp (name = "sad flywheel pls worka")
 public class Sadflywheel extends LinearOpMode {
 
     @Override
@@ -35,7 +35,7 @@ public class Sadflywheel extends LinearOpMode {
         double F = 13.4050;
 
         //outtake power => 0.56 * 6000 rpm in ts/rev .. 1568
-        int desiredOutput = 1500;
+        int desiredOutput = 1700;
         int slowDownOutput = 900;
 
         //outtake settings
@@ -86,6 +86,18 @@ public class Sadflywheel extends LinearOpMode {
             frontRight.setPower(frontRightPower);
             backRight.setPower(backRightPower);
 
+
+            //added by victoria, shooter presses x/b and flywheel velocity changes
+            if (gamepad2.x) {
+                desiredOutput = 1700;
+            } else {
+                if (gamepad2.b) {
+                    desiredOutput = (int)(1700*0.8);
+                }
+            }
+
+
+
             //OUTTAKE LOGIC
             if (gamepad2.right_trigger > 0.1) {
                 backRollerMotor.setVelocity(desiredOutput);
@@ -107,6 +119,9 @@ public class Sadflywheel extends LinearOpMode {
                 }
             }
 
+
+
+
             if (gamepad2.right_bumper){
                 frontRollerMotor.setPower(-0.5);
             } else {
@@ -126,7 +141,7 @@ public class Sadflywheel extends LinearOpMode {
 
             //makes front roller go back
             if (gamepad2.left_bumper){
-                frontRollerMotor.setPower(.65);
+                frontRollerMotor.setPower(.60);
             }
 
             if (gamepad2.left_trigger > 0.1) {
@@ -149,7 +164,4 @@ public class Sadflywheel extends LinearOpMode {
         }
 
     }
-
-
 }
-

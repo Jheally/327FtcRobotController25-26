@@ -13,7 +13,7 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import org.firstinspires.ftc.robotcore.external.JavaUtil;
 
 @TeleOp(name = "ray tele v30")
-public class NewTele extends OpMode {
+public class RayTele extends OpMode {
 
     // declaring hardware
     private DcMotor frontLeft;
