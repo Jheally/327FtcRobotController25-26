@@ -147,6 +147,7 @@ public class PedroFrontShootAuto extends OpMode {
                 //shoot second around of artifacts
                 //TODO: ADD CODE TO SHOOT SECOND ROUND
                 setPathState(8);
+                break;
             case 8:
                 //done
                 break;
