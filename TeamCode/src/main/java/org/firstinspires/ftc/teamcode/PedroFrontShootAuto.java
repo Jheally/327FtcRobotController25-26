@@ -111,37 +111,43 @@ public class PedroFrontShootAuto extends OpMode {
             case 1:
                 //wait for path1 to finish
                 if (!follower.isBusy()){
-                    //shoot preloads
-                    //TODO: FLYWHEEL SHOOT 3 PRELOADS
                     setPathState(2);
                 }
                 break;
             case 2:
-                //move to human player
-                follower.followPath(paths.Path2);
+                //shoot preloads
+                //TODO: ADD CODE TO SHOOT THE 3 PRELOADS
                 setPathState(3);
                 break;
             case 3:
-                //wait for path 2 to finish
-                if (!follower.isBusy()){
-                    //get artifacts from human player
-                    setPathState(4);
-                }
+                //go to human player
+                follower.followPath(paths.Path2);
+                setPathState(4);
                 break;
             case 4:
-                //wait for path3 to finish
-                if (pathTimer.getElapsedTimeSeconds()>6.0){
-                    follower.followPath(paths.Path3);
+                //wait for path2 to finish
+                if (!follower.isBusy()){
                     setPathState(5);
                 }
                 break;
             case 5:
-                if (!follower.isBusy()){
-                    //TODO: 2ND ROUND OF ARTIFACTS
+                //wait at human player zone
+                if (pathTimer.getElapsedTimeSeconds()>6.0){
+                    follower.followPath(paths.Path3);
                     setPathState(6);
                 }
                 break;
             case 6:
+                //wait for path 3 to be done
+                if (!follower.isBusy()){
+                    setPathState(7);
+                }
+                break;
+            case 7:
+                //shoot second around of artifacts
+                //TODO: ADD CODE TO SHOOT SECOND ROUND
+                setPathState(8);
+            case 8:
                 //done
                 break;
 
