@@ -145,7 +145,7 @@ public class Sadflywheel extends LinearOpMode {
             }
 
             if (gamepad2.left_trigger > 0.1) {
-                servo.setPower(.7);
+                servo.setPower(1);
                 sleep(500);
                 frontRollerMotor.setPower(.5);
                 sleep(1500);

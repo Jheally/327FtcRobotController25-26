@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Pose3D;
 import org.firstinspires.ftc.robotcore.external.navigation.YawPitchRollAngles;
 
 
-@Autonomous(name = "limelight test ayy v1")
+@Autonomous(name = "limelight v1")
 public class AprilTagLimelightTest extends OpMode {
     private Limelight3A limelight;
     private IMU imu;
@@ -37,8 +37,6 @@ public class AprilTagLimelightTest extends OpMode {
 
     @Override
     public void loop() {
-        YawPitchRollAngles orientation = imu.getRobotYawPitchRollAngles();
-        limelight.updateRobotOrientation(orientation.getYaw());
         LLResult llResult = limelight.getLatestResult();
         if (llResult != null && llResult.isValid()) {
             Pose3D botPose = llResult.getBotpose_MT2();
